@@ -1,0 +1,146 @@
+---
+import { type Lang, useTranslations } from '../i18n/ui';
+import Phone from './Phone.astro';
+import PlayBadge from './PlayBadge.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const howSteps = [
+  { t: t.how.s1t, d: t.how.s1d, e: t.how.s1e, img: '/images/own_programs.png', alt: t.how.s1t },
+  { t: t.how.s2t, d: t.how.s2d, e: t.how.s2e, img: '/images/cust_scan.png', alt: t.how.s2t },
+  { t: t.how.s3t, d: t.how.s3d, e: t.how.s3e, img: '/images/cust_qr.png', alt: t.how.s3t },
+];
+---
+<!-- HERO -->
+<header class="hero">
+  <div class="glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">★ {t.hero.eyebrow}</span>
+      <h1>{t.hero.titleMain} <span>{t.hero.titleAccent}</span>.</h1>
+      <p class="lead">{t.hero.lead}</p>
+      <div class="plainbox">👉 {t.hero.plain}</div>
+      <div class="cta-row">
+        <a href="#get" class="btn btn-primary">{t.hero.ctaApp} →</a>
+        <a href="#how" class="btn btn-ghost">{t.hero.ctaHow}</a>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <Phone src="/images/cust_home.png" alt={t.hero.titleMain} eager={true} />
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">{t.how.tag}</div>
+      <h2>{t.how.title}</h2>
+      <p>{t.how.sub}</p>
+    </div>
+    <div class="how">
+      {howSteps.map((s, i) => (
+        <div class="how-row">
+          <div class="n">{i + 1}</div>
+          <div>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+            <span class="ex">{s.e}</span>
+          </div>
+          <img class="shot" src={s.img} alt={s.alt} width="1080" height="2118" loading="lazy" decoding="async" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- TWO APPS -->
+<section id="apps">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">{t.apps.tag}</div>
+      <h2>{t.apps.title}</h2>
+      <p>{t.apps.sub}</p>
+    </div>
+    <div class="apps">
+      <div class="appcard">
+        <div class="top">
+          <div class="badge" style="background:#223a2d;color:var(--green)">🏪</div>
+          <div><h3>{t.apps.ownerTitle}</h3><div class="who">{t.apps.ownerWho}</div></div>
+        </div>
+        <ul>
+          {t.apps.ownerItems.map((it) => (<li><b>{it[0]}</b>{it[1]}</li>))}
+        </ul>
+        <div class="shots">
+          <img src="/images/own_dashboard.png" alt={t.apps.ownerTitle} width="1080" height="2118" loading="lazy" />
+          <img src="/images/own_qr.png" alt={t.apps.ownerTitle} width="1080" height="2118" loading="lazy" />
+        </div>
+      </div>
+      <div class="appcard">
+        <div class="top">
+          <div class="badge" style="background:#3a2a22;color:var(--coral)">📱</div>
+          <div><h3>{t.apps.custTitle}</h3><div class="who">{t.apps.custWho}</div></div>
+        </div>
+        <ul>
+          {t.apps.custItems.map((it) => (<li><b>{it[0]}</b>{it[1]}</li>))}
+        </ul>
+        <div class="shots">
+          <img src="/images/cust_card.png" alt={t.apps.custTitle} width="1080" height="2118" loading="lazy" />
+          <img src="/images/cust_qr.png" alt={t.apps.custTitle} width="1080" height="2118" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">{t.features.tag}</div>
+      <h2>{t.features.title}</h2>
+    </div>
+    <div class="features">
+      {t.features.items.map((f) => (
+        <div class="feat">
+          <div class="ic">{f[0]}</div>
+          <h3>{f[1]}</h3>
+          <p>{f[2]}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section>
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:30px">
+      <div class="tag">{t.types.tag}</div>
+      <h2>{t.types.title}</h2>
+    </div>
+    <div class="types">
+      {t.types.list.map((x) => (<div class="type"><span>{x[0]}</span>{x[1]}</div>))}
+    </div>
+    <div class="langs">
+      <div class="lang">Français</div>
+      <div class="lang">العربية</div>
+      <div class="lang">English</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="get">
+  <div class="wrap">
+    <div class="cta">
+      <h2>{t.cta.title}</h2>
+      <p>{t.cta.desc}</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center">
+        <PlayBadge />
+        <a href="mailto:abdelaliajdir@gmail.com?subject=Fidlo%20early%20access" class="btn btn-dark">{t.cta.button}</a>
+      </div>
+    </div>
+  </div>
+</section>

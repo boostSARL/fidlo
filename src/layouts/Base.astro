@@ -1,0 +1,56 @@
+---
+import '@fontsource/plus-jakarta-sans/400.css';
+import '@fontsource/plus-jakarta-sans/600.css';
+import '@fontsource/plus-jakarta-sans/700.css';
+import '@fontsource/plus-jakarta-sans/800.css';
+import '@fontsource/ibm-plex-sans-arabic/400.css';
+import '@fontsource/ibm-plex-sans-arabic/600.css';
+import '@fontsource/ibm-plex-sans-arabic/700.css';
+import '../styles/global.css';
+import { type Lang, isRtl, useTranslations, languages } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Locale-neutral path without leading slash, e.g. '' for home, 'privacy'. */
+  path?: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang } = Astro.props;
+const path = Astro.props.path ?? '';
+const t = useTranslations(lang);
+const title = Astro.props.title ?? t.meta.title;
+const description = Astro.props.description ?? t.meta.description;
+const dir = isRtl(lang) ? 'rtl' : 'ltr';
+
+const urlFor = (l: Lang) =>
+  new URL((l === 'fr' ? '/' : `/${l}/`) + path, Astro.site).href.replace(/\/$/, '') || '/';
+const canonical = urlFor(lang);
+const ogImage = new URL('/images/cust_home.png', Astro.site).href;
+const langKeys = Object.keys(languages) as Lang[];
+---
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {langKeys.map((l) => <link rel="alternate" hreflang={l} href={urlFor(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={urlFor('fr')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fidlo" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#17110e" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

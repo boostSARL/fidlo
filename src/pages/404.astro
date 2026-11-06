@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const lang = 'fr' as const;
+---
+<Base lang={lang} path="" title="404 — Fidlo">
+  <Header lang={lang} path="" />
+  <section class="prose" style="text-align:center">
+    <h1>404</h1>
+    <p>Page introuvable / Page not found / الصفحة غير موجودة</p>
+    <p style="margin-top:20px"><a href="/" class="btn btn-primary">Fidlo →</a></p>
+  </section>
+  <Footer lang={lang} />
+</Base>

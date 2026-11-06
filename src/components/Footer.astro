@@ -1,0 +1,19 @@
+---
+import { type Lang, useTranslations } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const privacyHref = 'https://loyalo-api.onrender.com/privacy';
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap foot">
+    <div class="brand"><span class="logo">F</span> Fidlo</div>
+    <div class="foot-links">
+      <a href={privacyHref}>{t.footer.privacy}</a>
+      <a href="https://loyalo-api.onrender.com/terms">{t.footer.terms}</a>
+      <a href="mailto:abdelaliajdir@gmail.com">{t.footer.contact}</a>
+    </div>
+    <div>© {year} Fidlo · {t.footer.rights}</div>
+  </div>
+</footer>

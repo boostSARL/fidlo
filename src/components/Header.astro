@@ -1,0 +1,28 @@
+---
+import { type Lang, useTranslations, languages } from '../i18n/ui';
+interface Props { lang: Lang; path?: string }
+const { lang } = Astro.props;
+const path = Astro.props.path ?? '';
+const t = useTranslations(lang);
+const langKeys = Object.keys(languages) as Lang[];
+const hrefFor = (l: Lang) => ((l === 'fr' ? '/' : `/${l}/`) + path).replace(/\/$/, '') || '/';
+const home = lang === 'fr' ? '/' : `/${lang}/`;
+---
+<nav>
+  <div class="wrap nav">
+    <a class="brand" href={home}><span class="logo">F</span> Fidlo</a>
+    <div class="nav-links">
+      <a href="#how">{t.nav.how}</a>
+      <a href="#apps">{t.nav.apps}</a>
+      <a href="#features">{t.nav.features}</a>
+    </div>
+    <div class="nav-right">
+      <div class="langsel">
+        {langKeys.map((l) => (
+          <a href={hrefFor(l)} class={l === lang ? 'active' : ''} hreflang={l}>{l.toUpperCase()}</a>
+        ))}
+      </div>
+      <a href="#get" class="btn btn-primary">{t.nav.cta}</a>
+    </div>
+  </div>
+</nav>

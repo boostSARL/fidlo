@@ -1,0 +1,23 @@
+---
+// A Google Play–style badge. Point `href` at the real Play listing once live.
+interface Props { href?: string; label?: string }
+const href = Astro.props.href ?? 'mailto:abdelaliajdir@gmail.com?subject=Fidlo%20early%20access';
+const label = Astro.props.label ?? 'Get it on';
+---
+<a class="playbadge" href={href}>
+  <svg width="22" height="24" viewBox="0 0 512 512" aria-hidden="true">
+    <path fill="#00D2FF" d="M47 15 300 268 47 497c-9-5-15-15-15-27V42c0-12 6-22 15-27z" opacity=".95"/>
+    <path fill="#FFCE00" d="m413 213 61 35c22 13 22 44 0 57l-61 35-70-82 70-80z"/>
+    <path fill="#00F076" d="M47 15c4-2 9-3 14-3 7 0 14 2 20 6l262 150-70 82L47 15z"/>
+    <path fill="#FF3A44" d="m343 350 70-82 70 82-262 150c-6 4-13 6-20 6-5 0-10-1-14-3l156-153z"/>
+  </svg>
+  <span><small>{label}</small><strong>Google Play</strong></span>
+</a>
+
+<style>
+  .playbadge{display:inline-flex;align-items:center;gap:12px;background:#0f0b09;border:1px solid #33261f;color:#f5ece6;padding:10px 20px;border-radius:14px;transition:transform .15s ease}
+  .playbadge:hover{transform:translateY(-1px)}
+  .playbadge span{display:flex;flex-direction:column;line-height:1.1;text-align:start}
+  .playbadge small{font-size:11px;opacity:.75;letter-spacing:.02em}
+  .playbadge strong{font-size:18px;font-weight:700}
+</style>
